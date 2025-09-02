@@ -6,11 +6,11 @@
       }
     },
     "env": {
-      "TELEGRAM_BOT_TOKEN": "@telegram_bot_token",
-      "MONGODB_URI": "@mongodb_uri",
-      "ADMIN_GROUP_ID": "@admin_group_id",
-      "MESSAGE_TOPIC_ID": "@message_topic_id",
-      "APPLICATION_TOPIC_ID": "@application_topic_id",
-      "WEBHOOK_URL": "@webhook_url"
+      "TELEGRAM_BOT_TOKEN": "7685517001:AAE9mQa0HVQPdD5ErH4YKeSTnDd4YbMiEnc",
+      "MONGODB_URI": "mongodb+srv://username:password@cluster.mongodb.net/telegram_bot",
+      "ADMIN_GROUP_ID": "1234567890",
+      "MESSAGE_TOPIC_ID": "1234567890",
+      "APPLICATION_TOPIC_ID": "1234567890",
+      "WEBHOOK_URL": "https://career-j254udmp9-mirboboyevjasur017gmailcoms-projects.vercel.app"
     }
   }

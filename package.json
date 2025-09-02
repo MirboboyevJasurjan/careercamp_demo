@@ -5,7 +5,8 @@
     "main": "api/webhook.js",
     "scripts": {
       "dev": "node ./lib/bot.js",
-      "deploy": "vercel --prod"
+      "deploy": "vercel --prod",
+      "start": "node ./lib/bot.js"
     },
     "dependencies": {
       "node-telegram-bot-api": "^0.64.0",
@@ -13,6 +14,6 @@
       "mongoose": "^8.0.3"
     },
     "engines": {
-      "node": "18.x"
+      "node": "22.x"
     }
   }

@@ -26,41 +26,47 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Only accept POST requests for webhook
-    if (req.method !== 'POST') {
-      return res.status(405).json({ error: 'Method not allowed' });
+    // Handle GET requests for setup/management
+    if (req.method === 'GET') {
+      return await handleGetRequest(req, res);
     }
 
-    // Validate request body
-    if (!req.body) {
-      return res.status(400).json({ error: 'No body provided' });
+    // Handle POST requests for webhook
+    if (req.method === 'POST') {
+      // Validate request body
+      if (!req.body) {
+        return res.status(400).json({ error: 'No body provided' });
+      }
+
+      // Initialize bot
+      const bot = await initBot();
+
+      // Log incoming update for debugging
+      console.log('Webhook received:', JSON.stringify(req.body, null, 2));
+
+      // Process the update
+      await bot.processUpdate(req.body);
+
+      // Respond with success
+      return res.status(200).json({ ok: true });
     }
 
-    // Initialize bot
-    const bot = await initBot();
-
-    // Log incoming update for debugging
-    console.log('Webhook received:', JSON.stringify(req.body, null, 2));
-
-    // Process the update
-    await bot.processUpdate(req.body);
-
-    // Respond with success
-    res.status(200).json({ ok: true });
+    // Method not allowed for other methods
+    return res.status(405).json({ error: 'Method not allowed' });
 
   } catch (error) {
     console.error('Webhook error:', error);
     
     // Don't expose internal errors to Telegram
-    res.status(200).json({ ok: false });
+    return res.status(200).json({ ok: false });
   }
 }
 
-// Handle webhook setup (for development/setup purposes)
-export async function GET(req, res) {
+// Handle webhook setup (for development/setup purposes) - moved to main handler
+const handleGetRequest = async (req, res) => {
   try {
-    const { searchParams } = new URL(req.url, `http://${req.headers.host}`);
-    const action = searchParams.get('action');
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    const action = url.searchParams.get('action');
 
     const bot = await initBot();
 
@@ -100,7 +106,7 @@ export async function GET(req, res) {
     console.error('GET endpoint error:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
-}
+};
 
 // Export for Vercel serverless function
 module.exports = handler;
