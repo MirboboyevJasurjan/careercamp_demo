@@ -1,0 +1,16 @@
+{
+    "version": 2,
+    "functions": {
+      "api/webhook.js": {
+        "maxDuration": 30
+      }
+    },
+    "env": {
+      "TELEGRAM_BOT_TOKEN": "@telegram_bot_token",
+      "MONGODB_URI": "@mongodb_uri",
+      "ADMIN_GROUP_ID": "@admin_group_id",
+      "MESSAGE_TOPIC_ID": "@message_topic_id",
+      "APPLICATION_TOPIC_ID": "@application_topic_id",
+      "WEBHOOK_URL": "@webhook_url"
+    }
+  }
