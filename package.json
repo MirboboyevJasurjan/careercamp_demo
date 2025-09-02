@@ -1,19 +1,19 @@
 {
-    "name": "telegram-student-bot",
-    "version": "1.0.0",
-    "description": "Telegram bot for student registration to club",
-    "main": "api/webhook.js",
-    "scripts": {
-      "dev": "node ./lib/bot.js",
-      "deploy": "vercel --prod",
-      "start": "node ./lib/bot.js"
-    },
-    "dependencies": {
-      "node-telegram-bot-api": "^0.64.0",
-      "mongodb": "^6.3.0",
-      "mongoose": "^8.0.3"
-    },
-    "engines": {
-      "node": "22.x"
-    }
+  "name": "student-registration-bot",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "engines": { 
+    "node": "22.x" 
+  },
+  "dependencies": {
+    "grammy": "^1.20.0",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.0.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "scripts": {
+    "dev": "node server-local.js"
   }
+}

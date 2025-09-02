@@ -1,16 +1,19 @@
-{
+  {
     "version": 2,
-    "functions": {
-      "api/webhook.js": {
-        "maxDuration": 30
-      }
-    },
+    "builds": [
+      { "src": "api/telegram.js", "use": "@vercel/node@2.15.10" },
+      { "src": "api/ping.js", "use": "@vercel/node@2.15.10" }
+    ],
+    "routes": [
+      { "src": "/api/telegram", "dest": "api/telegram.js" },
+      { "src": "/api/ping", "dest": "api/ping.js" }
+    ],
     "env": {
-      "TELEGRAM_BOT_TOKEN": "7685517001:AAE9mQa0HVQPdD5ErH4YKeSTnDd4YbMiEnc",
-      "MONGODB_URI": "mongodb+srv://username:password@cluster.mongodb.net/telegram_bot",
+      "BOT_TOKEN": "7685517001:AAE9mQa0HVQPdD5ErH4YKeSTnDd4YbMiEnc",
+      "MONGODB_URI": "mongodb+srv://mirboboyevjasur017_db_user:JpcE0bBTFi7BdAd5@cluster0.9qf3wim.mongodb.net/career_bot",
       "ADMIN_GROUP_ID": "1234567890",
       "MESSAGE_TOPIC_ID": "1234567890",
-      "APPLICATION_TOPIC_ID": "1234567890",
-      "WEBHOOK_URL": "https://career-j254udmp9-mirboboyevjasur017gmailcoms-projects.vercel.app"
+      "APPLICATION_TOPIC_ID": "@application_topic_id",
+      "WEBHOOK_SECRET": "@webhook_secret"
     }
   }
