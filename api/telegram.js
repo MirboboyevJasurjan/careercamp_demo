@@ -1,47 +1,30 @@
 const { webhookCallback } = require("grammy");
-const { bot, ensureBotInit } = require("../bot");
+const { bot, ensureBotInit } = require("../src/bot");
 
-// Webhook secret for security (optional)
-const EXPECTED = (process.env.WEBHOOK_SECRET || "").trim();
+// Telegram "secret token" ni tekshirish (ixtiyoriy lekin xavfsiz)
+function checkSecret(req) {
+  const required = process.env.TELEGRAM_SECRET_TOKEN;
+  if (!required) return true; // yo'q bo'lsa o'tkazamiz
+  const got = req.headers["x-telegram-bot-api-secret-token"];
+  return got && got === required;
+}
 
-module.exports = async function handler(req, res) {
-  // Handle GET requests - health check
-  if (req.method === "GET") {
-    return res.status(200).json({ 
-      ok: true, 
-      bot: "student-registration-bot",
-      status: "alive" 
-    });
-  }
-  
-  // Only accept POST requests for webhook
+module.exports = async (req, res) => {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method Not Allowed" });
+    res.status(405).json({ ok: false, error: "Method Not Allowed" });
+    return;
   }
-
-  // Optional webhook secret verification
-  if (EXPECTED) {
-    const got = (req.headers["x-telegram-bot-api-secret-token"] || "").trim();
-    if (got !== EXPECTED) {
-      console.warn("❌ Webhook secret mismatch:", got || "EMPTY");
-      return res.status(401).end("Unauthorized");
-    }
+  if (!checkSecret(req)) {
+    res.status(401).json({ ok: false, error: "Unauthorized" });
+    return;
   }
 
   try {
-    // Ensure bot is initialized
     await ensureBotInit();
-
-    // Use grammY's webhook callback
-    const fn = webhookCallback(bot, "http");
-    await fn(req, res);
-    
-  } catch (error) {
-    console.error("❗️ Webhook error:", error);
-    
-    // Always return 200 to Telegram to avoid retries
-    if (!res.headersSent) {
-      res.status(200).json({ ok: false });
-    }
+    const handleUpdate = webhookCallback(bot, "http");
+    await handleUpdate(req, res);
+  } catch (e) {
+    console.error("Webhook error:", e);
+    res.status(500).json({ ok: false });
   }
 };
