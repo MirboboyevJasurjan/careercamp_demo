@@ -8,7 +8,8 @@ const { bot, ensureBotInit } = require("./src/bot");
     console.log("✅ Bot init — long polling rejimida ishlayapti (local test)");
     await bot.start();
   } catch (e) {
-    console.error("❌ Xato:", e);
+    console.error("❌ Xato: ", e);
     process.exit(1);
   }
 })();
+
