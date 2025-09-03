@@ -37,7 +37,7 @@ function escapeHtml(s = "") {
       return { mediaType: "video_note", fileId: msg.video_note.file_id, fileSize: msg.video_note.file_size, fileName: `video_note_${Date.now()}.mp4` };
     }
     return null;
-  }
+  } 
   
   async function sendMedia(api, chatId, file, options) {
     switch (file.mediaType) {
