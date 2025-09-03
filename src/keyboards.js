@@ -1,38 +1,39 @@
-const { InlineKeyboard } = require("grammy");
+const { Keyboard, InlineKeyboard } = require("grammy");
 
+// Reply keyboards
 function mainMenuKeyboard() {
-  return new InlineKeyboard()
-    .text("💬 Adminlarga yozish", "message_admin")
-    .text("📝 Ariza topshirish", "apply");
+  return new Keyboard()
+    .text("💬 Adminlarga yozish")
+    .text("📝 Ariza topshirish")
+    .resized();
 }
 
 function cancelKeyboard() {
-  return new InlineKeyboard().text("❌ Bekor qilish", "cancel");
+  return new Keyboard()
+    .text("❌ Bekor qilish")
+    .text("🏠 Menuga qaytish")
+    .resized();
 }
 
 function submitApplicationKeyboard() {
-  return new InlineKeyboard()
-    .text("✅ Arizani topshirish", "submit_application")
+  return new Keyboard()
+    .text("✅ Arizani topshirish")
     .row()
-    .text("❌ Bekor qilish", "cancel");
+    .text("❌ Bekor qilish")
+    .text("🏠 Menuga qaytish")
+    .resized();
 }
 
-function backToMenuKeyboard() {
-  return new InlineKeyboard().text("🏠 Menuga qaytish", "back_to_menu");
-}
-
+// Inline for admin actions (post ostida)
 function adminApplicationActions(appId) {
   return new InlineKeyboard()
-    .text("✅ Tasdiqlash", `app:approve:${appId}`)
-    .text("❌ Rad etish", `app:reject:${appId}`)
-    .row()
-    .text("📎 Qo‘shimcha fayl so‘rash", `app:request_more:${appId}`);
+    .text("✅ Approve", `app:approve:${appId}`)
+    .text("❌ Reject", `app:reject:${appId}`);
 }
 
 module.exports = {
   mainMenuKeyboard,
   cancelKeyboard,
   submitApplicationKeyboard,
-  backToMenuKeyboard,
-  adminApplicationActions
+  adminApplicationActions,
 };

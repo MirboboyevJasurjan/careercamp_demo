@@ -1,13 +1,33 @@
 {
   "name": "telegram-club-bot",
   "version": "1.0.0",
+  "description": "Telegram bot for Student Club registration and admin communication (Uzbek version), deployed on Vercel with MongoDB + grammY.",
   "private": true,
   "type": "commonjs",
   "engines": {
     "node": ">=18"
   },
+  "main": "api/telegram.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "node server-local.js",
+    "set-webhook": "node scripts/setWebhook.js",
+    "delete-webhook": "node scripts/deleteWebhook.js"
+  },
   "dependencies": {
     "grammy": "^1.23.0",
-    "mongoose": "^8.6.1"
-  }
+    "mongoose": "^8.6.1",
+    "dotenv": "^16.4.5"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "grammy",
+    "mongodb",
+    "vercel",
+    "uzbekistan",
+    "student-club"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
 }
